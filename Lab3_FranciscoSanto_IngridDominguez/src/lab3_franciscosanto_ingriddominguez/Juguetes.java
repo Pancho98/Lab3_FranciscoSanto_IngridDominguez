@@ -12,11 +12,12 @@ package lab3_franciscosanto_ingriddominguez;
 public class Juguetes extends Producto {
     private String juguetes;
 
-    public Juguetes() {
-        super();
+    public Juguetes(String juguetes) {
+        this.juguetes = juguetes;
     }
 
-    public Juguetes(String juguetes) {
+    public Juguetes(String juguetes, int precio, String descripcion, String marca, double descuento) {
+        super(precio, descripcion, marca, descuento);
         this.juguetes = juguetes;
     }
 

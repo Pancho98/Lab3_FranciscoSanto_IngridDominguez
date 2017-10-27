@@ -5,7 +5,10 @@
  */
 package lab3_franciscosanto_ingriddominguez;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +21,7 @@ public class Lab3_FranciscoSanto_IngridDominguez {
     static ArrayList<Empleado> empleados = new ArrayList();
     static ArrayList<Tiendas> tiendas = new ArrayList();
     static ArrayList<Locales> locales = new ArrayList();
+    static ArrayList<Producto> productos = new ArrayList();
     static ArrayList lista = new ArrayList();
 
     public static void main(String[] args) {
@@ -33,8 +37,8 @@ public class Lab3_FranciscoSanto_IngridDominguez {
                     if (User_Socio.equals(Username) && User_contra.equals(Contraseña)) {
                         String ocpS = JOptionPane.showInputDialog("a. Crear Locales\n"
                                 + "b. Asignar Empleados\n"
-                                + "c. Asignar Productos\n"
-                                + "d. crear Producto\n"
+                                + "c. Crear Producto\n"
+                                + "d. Asignar Productos\n"
                                 + "e. Ver Facturacion\n");
 
                         switch (ocpS) {
@@ -42,9 +46,12 @@ public class Lab3_FranciscoSanto_IngridDominguez {
                                 CrearLocales();
                                 break;
                             case "b":
+                                AsignarEmpleado();
                                 break;
                             case "c":
+
                                 break;
+
                         }
                     }
                     for (Empleado t : empleados) {
@@ -159,5 +166,32 @@ public class Lab3_FranciscoSanto_IngridDominguez {
             locales.get(local).getEmpleados().add(empleados.get(posicion));
         }
 
+    }
+
+    public static void CrearProducto() {
+        int precio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el precio del Producto"));
+        String descripcion = JOptionPane.showInputDialog("Ingrese la descripcion o nombre del producto");
+        String marca = JOptionPane.showInputDialog("Ingrese la marca del producto");
+
+        String opc2 = JOptionPane.showInputDialog("Crear Productos\n"
+                + "a. Ropa\n"
+                + "b. Juguetes\n"
+                + "c. Comida").toLowerCase();
+        switch (opc2) {
+            case "a":
+                String talla = JOptionPane.showInputDialog("Ingrese el precio del Producto");
+                String genero = JOptionPane.showInputDialog("Ingrese\n"
+                        + " F=Femenino\n"
+                        + " M=Masculino");
+                productos.add(new Ropa(talla, genero, precio, descripcion, marca, 0));
+                break;
+            case "b":
+                String juguete = JOptionPane.showInputDialog("Ingrese el nombre del juguete");
+                productos.add(new Juguetes(juguete, precio, descripcion, marca, precio));
+                break;
+            case "c":
+                productos.add(new Comida(new Date(), precio, descripcion, marca, precio));
+                break;
+        }
     }
 }
