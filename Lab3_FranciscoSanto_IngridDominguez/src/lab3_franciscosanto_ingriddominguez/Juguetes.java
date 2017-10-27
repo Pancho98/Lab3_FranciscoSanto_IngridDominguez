@@ -13,6 +13,7 @@ public class Juguetes extends Producto {
     private String juguetes;
 
     public Juguetes() {
+        super();
     }
 
     public Juguetes(String juguetes) {

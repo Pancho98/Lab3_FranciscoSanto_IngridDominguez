@@ -17,6 +17,7 @@ public class Locales_Comida extends Locales {
     private Producto Producto_Dia;
 
     public Locales_Comida() {
+        super();
     }
 
     public Locales_Comida(int N_Empleados, Producto Producto_Dia, String nombre, int n_Piso) {
@@ -30,7 +31,9 @@ public class Locales_Comida extends Locales {
     }
 
     public void setN_Empleados(int N_Empleados) {
-        this.N_Empleados = N_Empleados;
+        if(N_Empleados <= 4){
+            this.N_Empleados = N_Empleados;
+        }
     }
 
     public ArrayList<Producto> getProductos() {

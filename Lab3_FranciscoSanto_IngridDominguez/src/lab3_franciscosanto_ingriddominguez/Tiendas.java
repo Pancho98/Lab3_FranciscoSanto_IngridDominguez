@@ -5,21 +5,23 @@
  */
 package lab3_franciscosanto_ingriddominguez;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 1234
  */
 public class Tiendas extends Locales {
     private int tamanio;
-    private Producto producto;
+    private ArrayList <Producto> producto = new ArrayList();
 
     public Tiendas() {
+        super();
     }
 
-    public Tiendas(int tamanio, Producto producto, String nombre, int n_Piso) {
+    public Tiendas(int tamanio, String nombre, int n_Piso) {
         super(nombre, n_Piso);
-        setTamanio(tamanio);
-        this.producto = producto;
+        this.tamanio = tamanio;
     }
 
     public int getTamanio() {
@@ -27,18 +29,22 @@ public class Tiendas extends Locales {
     }
 
     public void setTamanio(int tamanio) {
-        if(tamanio <= 18){
-            this.tamanio = tamanio;
-        }
+        this.tamanio = tamanio;
     }
 
-    public Producto getProducto() {
+    public ArrayList<Producto> getProducto() {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
+    public void setProducto(ArrayList<Producto> producto) {
         this.producto = producto;
     }
+
+    @Override
+    public String toString() {
+        return "Tiendas{" + "tamanio=" + tamanio + ", producto=" + producto + '}';
+    }
+
     
     
     
