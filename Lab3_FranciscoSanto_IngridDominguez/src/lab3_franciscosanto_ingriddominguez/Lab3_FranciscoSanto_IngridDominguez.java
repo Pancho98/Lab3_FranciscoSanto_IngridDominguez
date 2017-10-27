@@ -23,7 +23,7 @@ public class Lab3_FranciscoSanto_IngridDominguez {
     static ArrayList<Locales> locales = new ArrayList();
     static ArrayList<Producto> productos = new ArrayList();
     static ArrayList lista = new ArrayList();
-    static int cont =0;
+    static int cont = 0;
 
     public static void main(String[] args) {
 
@@ -33,47 +33,65 @@ public class Lab3_FranciscoSanto_IngridDominguez {
                     + "b. Registrarse\n");
             switch (opc) {
                 case "a":
-                    String Username = JOptionPane.showInputDialog("Ingrese Su username: ");
+                    String Username = JOptionPane.showInputDialog("Ingrese Su nombre: ");
                     String Contraseña = JOptionPane.showInputDialog("Ingrese Su contraseña: ");
                     if (User_Socio.equals(Username) && User_contra.equals(Contraseña)) {
                         String ocpS = JOptionPane.showInputDialog("a. Crear Locales\n"
                                 + "b. Asignar Empleados\n"
                                 + "c. Crear Producto\n"
                                 + "d. Asignar Productos\n"
-                                + "e. Ver Facturacion\n");
+                                + "e. Ver Facturacion\n"
+                                + "f. Lista Empleados\n"
+                                + "g. Modificar Empleados\n"
+                                + "h. Eliminar Empleados");
 
                         switch (ocpS) {
                             case "a":
                                 CrearLocales();
-                                System.out.println(locales.get(locales.size()-1));
+                                System.out.println(locales.get(locales.size() - 1));
                                 break;
                             case "b":
                                 AsignarEmpleado();
-                                System.out.println(empleados.get(empleados.size()-1));
+                                System.out.println(empleados.get(empleados.size() - 1));
                                 break;
                             case "c":
                                 CrearProducto();
-                                System.out.println(productos.get(productos.size()-1));
+                                System.out.println(productos.get(productos.size() - 1));
                                 break;
                             case "d":
                                 AsignarProducto();
+                                break;
+                            case "e":
+                                String cadena = "";
+                                for (int i = 0; i < lista.size(); i++) {
+                                    cadena+= ""+lista.get(i)+"\n";
+                                }
+                                JOptionPane.showMessageDialog(null, "Facturas\n"+cadena);
+                                break;
+                            case "f":
+                                String cadena1 = "";
+                                for (int i = 0; i < empleados.size(); i++) {
+                                    cadena1+= ""+empleados.get(i).getNombre()+"\n";
+                                }
+                                JOptionPane.showMessageDialog(null, "Facturas\n"+cadena1);
+                                break;
+                            case "g":
+                                modificar();
+                                break;
+                            case "h":
+                                eliminar_empleados();
                                 break;
                         }
                     }
                     for (Empleado t : empleados) {
                         if (Username.equals(t.getUsername()) && Contraseña.equals(t.getContraseña())) {
-                            int n_cliente = empleados.indexOf(t);
-                            Cliente_Tiendas(n_cliente);
+                            
                         }
                     }
                     for (Clientes t : clientes) {
-                        if (Username.equals(t.getUsername()) && Contraseña.equals(t.getContraseña())) {
-                            String opcE = JOptionPane.showInputDialog("a. Log in\n"
-                                    + "b. \n"
-                                    + "c. \n"
-                                    + "d. \n"
-                                    + "e. \n"
-                                    + "");
+                        if (Username.equals(t.getNombre()) && Contraseña.equals(t.getContraseña())) {
+                           int n_cliente = clientes.indexOf(t);
+                            Cliente_Tiendas(n_cliente);
                         }
                     }
                     break;
@@ -114,6 +132,7 @@ public class Lab3_FranciscoSanto_IngridDominguez {
             cont_p++;
 
         }// fin de la compra
+        JOptionPane.showMessageDialog(null, "Tu total a pagar es= "+total_pagar);
 
         String factura = "";
         for (int i = 0; i < clientes.get(n_cliente).getComprados().size(); i++) {
@@ -201,39 +220,38 @@ public class Lab3_FranciscoSanto_IngridDominguez {
                 break;
         }
     }
-    
-    public static void Registro(){
+
+    public static void Registro() {
         String resp = JOptionPane.showInputDialog("Ingresa tu opcion: \n"
                 + "a.- Empleado\n"
                 + "b.- Cliente");
-        
-        
-        switch(resp){
+
+        switch (resp) {
             case "a":
                 String nombre = JOptionPane.showInputDialog("Ingrese tu nombre: ");
-                String contraseña  = ""+JOptionPane.showInputDialog("Ingrese tu contraseña: ");
-                String correo = ""+JOptionPane.showInputDialog("Ingrese tu correo electronico: ");
+                String contraseña = "" + JOptionPane.showInputDialog("Ingrese tu contraseña: ");
+                String correo = "" + JOptionPane.showInputDialog("Ingrese tu correo electronico: ");
                 Date fecha = new Date();
                 int id = cont;
                 cont++;
-                empleados.add(new Empleado(7, 5, 0, nombre+id, contraseña, correo, nombre, id, fecha));
-                System.out.println(empleados.get(empleados.size()-1));
+                empleados.add(new Empleado(7, 5, 0, nombre + id, contraseña, correo, nombre, id, fecha));
+                System.out.println(empleados.get(empleados.size() - 1));
                 break;
             case "b":
                 String nombre1 = JOptionPane.showInputDialog("Ingrese tu nombre: ");
-                String contraseña1  = ""+JOptionPane.showInputDialog("Ingrese tu contraseña: ");
-                String correo1 = ""+JOptionPane.showInputDialog("Ingrese tu correo electronico: ");
+                String contraseña1 = "" + JOptionPane.showInputDialog("Ingrese tu contraseña: ");
+                String correo1 = "" + JOptionPane.showInputDialog("Ingrese tu correo electronico: ");
                 int dinero = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cantidad de dinero disponible "));
                 Date fecha1 = new Date();
                 int id1 = cont;
                 cont++;
-                clientes.add(new Clientes(dinero, nombre1+id1, contraseña1, correo1, nombre1, id1, fecha1));
-                System.out.println(clientes.get(clientes.size()-1));
+                clientes.add(new Clientes(dinero, nombre1 + id1, contraseña1, correo1, nombre1, id1, fecha1));
+                System.out.println(clientes.get(clientes.size() - 1));
                 break;
         }
-        
+
     }
-    
+
     public static void AsignarProducto() {
         String tiendas = "";
         for (int i = 0; i < locales.size(); i++) {
@@ -246,53 +264,70 @@ public class Lab3_FranciscoSanto_IngridDominguez {
         int local = Integer.parseInt(resp) - 1;
 
         String producto = "";
-        if(locales.get(local) instanceof Tiendas){
-            
+        if (locales.get(local) instanceof Tiendas) {
+
             for (int i = 0; i < productos.size(); i++) {
-                if(productos.get(i) instanceof Comida){
-                    
-                }else{
-                    producto += ""+(i+1)+"- "+productos.get(i).getDescripcion()+"\n";
+                if (productos.get(i) instanceof Comida) {
+
+                } else {
+                    producto += "" + (i + 1) + "- " + productos.get(i).getDescripcion() + "\n";
                 }
             }
-        }else if (locales.get(local) instanceof Quioscos){
+        } else if (locales.get(local) instanceof Quioscos) {
             for (int i = 0; i < productos.size(); i++) {
-                
-                    producto += ""+(i+1)+"- "+productos.get(i).getDescripcion()+"\n";
-                
+
+                producto += "" + (i + 1) + "- " + productos.get(i).getDescripcion() + "\n";
+
             }
-        }else if(locales.get(local) instanceof Locales_Comida){
+        } else if (locales.get(local) instanceof Locales_Comida) {
             for (int i = 0; i < productos.size(); i++) {
-                if(productos.get(i) instanceof Ropa || productos.get(i) instanceof Juguetes){
-                    
-                }else{
-                    producto += ""+(i+1)+"- "+productos.get(i).getDescripcion()+"\n";
+                if (productos.get(i) instanceof Ropa || productos.get(i) instanceof Juguetes) {
+
+                } else {
+                    producto += "" + (i + 1) + "- " + productos.get(i).getDescripcion() + "\n";
                 }
             }
         }
-        
-         resp = JOptionPane.showInputDialog("Ingresa la posicion del producto que deseas asignar: \n"+
-                                        producto);
-         
-         int pos = Integer.parseInt(resp);
-         
-         locales.get(local).getProductos().add(productos.get(pos));
+
+        resp = JOptionPane.showInputDialog("Ingresa la posicion del producto que deseas asignar: \n"
+                + producto);
+
+        int pos = Integer.parseInt(resp);
+
+        locales.get(local).getProductos().add(productos.get(pos-1));
     }
-    public static void eliminar_empleados(){
+
+    public static void eliminar_empleados() {
+        String empleado = "";
         for (int i = 0; i < empleados.size(); i++) {
-            JOptionPane.showMessageDialog(i+"-. "+empleados.get(i));
+            empleado += "" + (i + 1) + ".- " + empleados.get(i).getNombre() + "\n";
         }
-        int eliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el empleado que desee eliminar"));
-        empleados.remove(eliminar);
-        for (int i = 0; i < empleados.size(); i++) {
-            JOptionPane.showMessageDialog(i+"-. "+empleados.get(i));
-        }
+
+        int res = Integer.parseInt(JOptionPane.showInputDialog("Ingresa la posicion del empleado a eliminar: \n"
+                + empleado));
+
+        empleados.remove(res - 1);
+        JOptionPane.showMessageDialog(null, "Empleado eliminado");
+
     }
-    public static void modificar(){
+
+    public static void modificar() {
+        String empleado = "";
         for (int i = 0; i < empleados.size(); i++) {
-            JOptionPane.showMessageDialog(""+i+"-. "+empleados.get(i)+"");
+            empleado += "" + (i + 1) + ".- " + empleados.get(i).getNombre() + "\n";
         }
-        int mod = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el empleado que desee modificar"));
+
+        int res = Integer.parseInt(JOptionPane.showInputDialog("Ingresa la posicion del empleado a modificar: \n"
+                + empleado));
+
+        String nombre = JOptionPane.showInputDialog("Ingrese nuevo nombre: ");
+        String contraseña = "" + JOptionPane.showInputDialog("Ingrese nueva contraseña: ");
+        String correo = "" + JOptionPane.showInputDialog("Ingrese nuevo correo electronico: ");
+        Date fecha = new Date();
         
+        empleados.get(res).setContraseña(contraseña);
+        empleados.get(res).setCorreo(correo);
+        empleados.get(res).setNombre(nombre);
+        JOptionPane.showMessageDialog(null, "Empleado Modificado");
     }
 }
