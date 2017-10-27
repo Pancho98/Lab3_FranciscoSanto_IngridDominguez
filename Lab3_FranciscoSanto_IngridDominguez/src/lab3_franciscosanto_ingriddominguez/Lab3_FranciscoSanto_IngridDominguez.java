@@ -37,6 +37,15 @@ public class Lab3_FranciscoSanto_IngridDominguez {
                                 + "d. crear Producto\n"
                                 + "e. Ver Facturacion\n");
 
+                        switch (ocpS) {
+                            case "a":
+                                CrearLocales();
+                                break;
+                            case "b":
+                                break;
+                            case "c":
+                                break;
+                        }
                     }
                     for (Empleado t : empleados) {
                         if (Username.equals(t.getUsername()) && Contraseña.equals(t.getContraseña())) {
@@ -104,7 +113,7 @@ public class Lab3_FranciscoSanto_IngridDominguez {
     public static void CrearLocales() {
         //
         String nombreT = JOptionPane.showInputDialog("Nombre de la tienda");
-        int n_piso =Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de piso"));
+        int n_piso = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de piso"));
         String opc1 = JOptionPane.showInputDialog("Crear local\n"
                 + "a. Tiendas\n"
                 + "b. Quioscos\n"
@@ -112,7 +121,7 @@ public class Lab3_FranciscoSanto_IngridDominguez {
         switch (opc1) {
             case "a":
                 int tamaño = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de piso"));
-                locales.add(new Tiendas(tamaño,nombreT,n_piso));
+                locales.add(new Tiendas(tamaño, nombreT, n_piso));
                 break;
             case "b":
                 lista.add(new Quioscos(nombreT, nombreT, n_piso));
@@ -124,4 +133,31 @@ public class Lab3_FranciscoSanto_IngridDominguez {
         }
     }
 
+    public static void AsignarEmpleado() {
+        String tiendas = "";
+        for (int i = 0; i < locales.size(); i++) {
+            tiendas += "" + (i + 1) + "- " + locales.get(i).getNombre() + "\n";
+        }
+
+        String resp = JOptionPane.showInputDialog("Ingresa a que tienda le desea agregar empleados: \n"
+                + tiendas);
+
+        int local = Integer.parseInt(resp) - 1;
+
+        if (locales.get(local) instanceof Locales_Comida && locales.get(local).getEmpleados().size() == 4) {
+            JOptionPane.showMessageDialog(null, "Locales de comida ya tiene su cantida maxima de empleados asignados");
+        } else {
+            String empleado = "";
+            for (int i = 0; i < empleados.size(); i++) {
+                empleado += "" + (i + 1) + "- " + empleados.get(i).getNombre() + "\n";
+            }
+            resp = JOptionPane.showInputDialog("Ingresa la posicion del empleado que deseas asignar \n"
+                    + tiendas);
+
+            int posicion = Integer.parseInt(resp);
+
+            locales.get(local).getEmpleados().add(empleados.get(posicion));
+        }
+
+    }
 }
