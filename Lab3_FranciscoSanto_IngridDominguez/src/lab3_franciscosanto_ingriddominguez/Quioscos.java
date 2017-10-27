@@ -14,5 +14,35 @@ import java.util.ArrayList;
 public class Quioscos extends Locales {
     private String nombre;
     private ArrayList <Producto> productos = new ArrayList();
+
+    public Quioscos() {
+    }
+
+    public Quioscos(String nombre, String nombre, int n_Piso) {
+        super(nombre, n_Piso);
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public ArrayList<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
+    }
+
+    @Override
+    public String toString() {
+        return "Quioscos{" + "nombre=" + nombre + ", productos=" + productos + '}';
+    }
+    
     
 }
