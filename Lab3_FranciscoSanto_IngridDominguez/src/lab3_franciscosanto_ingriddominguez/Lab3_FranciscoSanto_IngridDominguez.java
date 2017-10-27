@@ -278,4 +278,21 @@ public class Lab3_FranciscoSanto_IngridDominguez {
          
          locales.get(local).getProductos().add(productos.get(pos));
     }
+    public static void eliminar_empleados(){
+        for (int i = 0; i < empleados.size(); i++) {
+            JOptionPane.showMessageDialog(i+"-. "+empleados.get(i));
+        }
+        int eliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el empleado que desee eliminar"));
+        empleados.remove(eliminar);
+        for (int i = 0; i < empleados.size(); i++) {
+            JOptionPane.showMessageDialog(i+"-. "+empleados.get(i));
+        }
+    }
+    public static void modificar(){
+        for (int i = 0; i < empleados.size(); i++) {
+            JOptionPane.showMessageDialog(""+i+"-. "+empleados.get(i)+"");
+        }
+        int mod = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el empleado que desee modificar"));
+        
+    }
 }
