@@ -23,6 +23,7 @@ public class Lab3_FranciscoSanto_IngridDominguez {
     static ArrayList<Locales> locales = new ArrayList();
     static ArrayList<Producto> productos = new ArrayList();
     static ArrayList lista = new ArrayList();
+    static int cont =0;
 
     public static void main(String[] args) {
 
@@ -44,14 +45,19 @@ public class Lab3_FranciscoSanto_IngridDominguez {
                         switch (ocpS) {
                             case "a":
                                 CrearLocales();
+                                System.out.println(locales.get(locales.size()-1));
                                 break;
                             case "b":
                                 AsignarEmpleado();
+                                System.out.println(empleados.get(empleados.size()-1));
                                 break;
                             case "c":
-
+                                CrearProducto();
+                                System.out.println(productos.get(productos.size()-1));
                                 break;
-
+                            case "d":
+                                AsignarProducto();
+                                break;
                         }
                     }
                     for (Empleado t : empleados) {
@@ -72,6 +78,7 @@ public class Lab3_FranciscoSanto_IngridDominguez {
                     }
                     break;
                 case "b":
+                    Registro();
                     break;
             }
         }
@@ -127,15 +134,15 @@ public class Lab3_FranciscoSanto_IngridDominguez {
                 + "c. Locales de comida").toLowerCase();
         switch (opc1) {
             case "a":
-                int tamaño = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de piso"));
+                int tamaño = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el tamaño"));
                 locales.add(new Tiendas(tamaño, nombreT, n_piso));
                 break;
             case "b":
-                lista.add(new Quioscos(nombreT, nombreT, n_piso));
+                locales.add(new Quioscos(nombreT, nombreT, n_piso));
                 break;
             case "c":
                 int max = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cuantos empleados hay"));
-                lista.add(new Locales_Comida(max, null, nombreT, n_piso));
+                locales.add(new Locales_Comida(max, null, nombreT, n_piso));
                 break;
         }
     }
@@ -193,5 +200,82 @@ public class Lab3_FranciscoSanto_IngridDominguez {
                 productos.add(new Comida(new Date(), precio, descripcion, marca, precio));
                 break;
         }
+    }
+    
+    public static void Registro(){
+        String resp = JOptionPane.showInputDialog("Ingresa tu opcion: \n"
+                + "a.- Empleado\n"
+                + "b.- Cliente");
+        
+        
+        switch(resp){
+            case "a":
+                String nombre = JOptionPane.showInputDialog("Ingrese tu nombre: ");
+                String contraseña  = ""+JOptionPane.showInputDialog("Ingrese tu contraseña: ");
+                String correo = ""+JOptionPane.showInputDialog("Ingrese tu correo electronico: ");
+                Date fecha = new Date();
+                int id = cont;
+                cont++;
+                empleados.add(new Empleado(7, 5, 0, nombre+id, contraseña, correo, nombre, id, fecha));
+                System.out.println(empleados.get(empleados.size()-1));
+                break;
+            case "b":
+                String nombre1 = JOptionPane.showInputDialog("Ingrese tu nombre: ");
+                String contraseña1  = ""+JOptionPane.showInputDialog("Ingrese tu contraseña: ");
+                String correo1 = ""+JOptionPane.showInputDialog("Ingrese tu correo electronico: ");
+                int dinero = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cantidad de dinero disponible "));
+                Date fecha1 = new Date();
+                int id1 = cont;
+                cont++;
+                clientes.add(new Clientes(dinero, nombre1+id1, contraseña1, correo1, nombre1, id1, fecha1));
+                System.out.println(clientes.get(clientes.size()-1));
+                break;
+        }
+        
+    }
+    
+    public static void AsignarProducto() {
+        String tiendas = "";
+        for (int i = 0; i < locales.size(); i++) {
+            tiendas += "" + (i + 1) + "- " + locales.get(i).getNombre() + "\n";
+        }
+
+        String resp = JOptionPane.showInputDialog("Ingresa a que tienda le desea asignar productos: \n"
+                + tiendas);
+
+        int local = Integer.parseInt(resp) - 1;
+
+        String producto = "";
+        if(locales.get(local) instanceof Tiendas){
+            
+            for (int i = 0; i < productos.size(); i++) {
+                if(productos.get(i) instanceof Comida){
+                    
+                }else{
+                    producto += ""+(i+1)+"- "+productos.get(i).getDescripcion()+"\n";
+                }
+            }
+        }else if (locales.get(local) instanceof Quioscos){
+            for (int i = 0; i < productos.size(); i++) {
+                
+                    producto += ""+(i+1)+"- "+productos.get(i).getDescripcion()+"\n";
+                
+            }
+        }else if(locales.get(local) instanceof Locales_Comida){
+            for (int i = 0; i < productos.size(); i++) {
+                if(productos.get(i) instanceof Ropa || productos.get(i) instanceof Juguetes){
+                    
+                }else{
+                    producto += ""+(i+1)+"- "+productos.get(i).getDescripcion()+"\n";
+                }
+            }
+        }
+        
+         resp = JOptionPane.showInputDialog("Ingresa la posicion del producto que deseas asignar: \n"+
+                                        producto);
+         
+         int pos = Integer.parseInt(resp);
+         
+         locales.get(local).getProductos().add(productos.get(pos));
     }
 }
