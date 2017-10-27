@@ -13,10 +13,14 @@ import javax.swing.JOptionPane;
  * @author Francisco Santos
  */
 public class Lab3_FranciscoSanto_IngridDominguez {
+    static    ArrayList<Clientes> clientes = new ArrayList();
+     static   ArrayList<Empleado> empleados = new ArrayList();
+     static   ArrayList<Tiendas> tiendas = new ArrayList();
+     static ArrayList lista = new ArrayList();
 
     public static void main(String[] args) {
-        ArrayList<Clientes> clientes = new ArrayList();
-        ArrayList<Empleado> empleados = new ArrayList();
+        
+        
         String resp = "s";
         while (resp.equals("s") || resp.equals("S")) {
             String opc = JOptionPane.showInputDialog("a. Log in\n"
@@ -39,12 +43,8 @@ public class Lab3_FranciscoSanto_IngridDominguez {
                     }
                     for (Empleado t : empleados) {
                         if (Username.equals(t.getUsername()) && Contraseña.equals(t.getContraseña())) {
-                            String opcC = JOptionPane.showInputDialog("a. Log in\n"
-                                    + "b. \n"
-                                    + "c. \n"
-                                    + "d. \n"
-                                    + "e. \n"
-                                    + "");
+                            int n_cliente = empleados.indexOf(t);
+                            Cliente_Tiendas(n_cliente);
                         }
                     }
                     for (Clientes t : clientes) {
@@ -65,4 +65,44 @@ public class Lab3_FranciscoSanto_IngridDominguez {
     }
     static String User_Socio = "Socio";
     static String User_contra = "1234";
+    
+    public static void Cliente_Tiendas(int n_cliente){
+       String tienda = "";
+        for (int i = 0; i < tiendas.size() ; i++) {
+            tienda += ""+(i+1)+"- "+tiendas.get(i).getNombre()+"\n";
+        }
+        
+        int dinero = clientes.get(n_cliente).getDinero();
+        
+        String resp = JOptionPane.showInputDialog("Ingresa tu opcion: \n"+ tienda);
+        int posicion = Integer.parseInt(resp);
+        
+        
+        
+        String producto = "";
+        for (int i = 0; i < tiendas.get(posicion -1).getProducto().size() ; i++) {
+            producto += ""+i+"- "+tiendas.get(posicion).getProducto().get(i)+"\n";
+        }
+        
+        int total_pagar = 0;
+        int cont_p = 0;
+        while(total_pagar <= dinero || cont_p <=5){
+            resp = JOptionPane.showInputDialog("Ingresa tu opcion del producto a comprar:\n"+ producto);
+            int numero = Integer.parseInt(resp);
+            
+            clientes.get(n_cliente).getComprados().add(tiendas.get(posicion).getProducto().get(numero));
+            
+            total_pagar += tiendas.get(posicion).getProducto().get(numero).getPrecio();
+            cont_p++;
+            
+        }// fin de la compra
+        
+        String factura = "";
+        for (int i = 0; i < clientes.get(n_cliente).getComprados().size(); i++) {
+          factura += ""  +clientes.get(n_cliente).getComprados().get(i)+ "\n\n" ;
+            
+        }
+        
+        lista.add(factura);
+    }
 }

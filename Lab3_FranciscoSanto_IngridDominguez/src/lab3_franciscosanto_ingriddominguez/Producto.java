@@ -59,7 +59,7 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" + "marca=" + marca + '}';
+        return "Producto: " + " marca=" + marca + "\nPrecio +"+precio;
     }
     
     
